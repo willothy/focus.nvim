@@ -304,6 +304,19 @@ function M.split_resizer(config) --> Only resize normal buffers, set qf to 10 al
         return
     end
 
+    if config.autoresize.minwidth > 0 then
+        if vim.o.winwidth < config.autoresize.minwidth then
+            vim.o.winwidth = config.autoresize.minwidth
+        end
+        vim.o.winminwidth = config.autoresize.minwidth
+    end
+    if config.autoresize.minheight > 0 then
+        if vim.o.winheight < config.autoresize.minheight then
+            vim.o.winheight = config.autoresize.minheight
+        end
+        vim.o.winminheight = config.autoresize.minheight
+    end
+
     M[M.goal](config)
 end
 
