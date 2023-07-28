@@ -245,7 +245,7 @@ function M.autoresize(config)
     local win = vim.api.nvim_get_current_win()
     local view = vim.fn.winsaveview()
     if config.autoresize.animation.enable then
-        M.animate(win, width, height, config, true)
+        M.animate(win, width, height, config, false)
     else
         vim.api.nvim_win_set_width(win, width)
         vim.api.nvim_win_set_height(win, height)
@@ -263,14 +263,21 @@ function M.equalise(config)
     end
 
     vim.api.nvim_exec2('wincmd =', { output = false })
-    for win, size in pairs(wins_pre) do
+    local sizes = {}
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
         local width = vim.api.nvim_win_get_width(win)
         local height = vim.api.nvim_win_get_height(win)
-        if config.autoresize.animation.enable then
-            vim.api.nvim_win_set_width(win, size.width)
-            vim.api.nvim_win_set_height(win, size.height)
-            M.animate(win, width, height, config)
-        end
+        sizes[win] = {
+            width = width,
+            height = height,
+        }
+    end
+    for win, _ in pairs(sizes) do
+        vim.api.nvim_win_set_width(win, wins_pre[win].width)
+        vim.api.nvim_win_set_height(win, wins_pre[win].height)
+    end
+    for win, size in pairs(sizes) do
+        M.animate(win, size.width, size.height, config)
     end
 end
 
@@ -284,7 +291,9 @@ function M.maximise(config)
     else
         vim.api.nvim_win_set_width(win, width)
         vim.api.nvim_win_set_height(win, height)
-        vim.fn.winrestview(view)
+        vim.api.nvim_win_call(function()
+            vim.fn.winrestview(view)
+        end)
     end
 end
 
