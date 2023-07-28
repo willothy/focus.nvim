@@ -299,7 +299,7 @@ function M.split_resizer(config) --> Only resize normal buffers, set qf to 10 al
         return
     end
 
-    if vim.bo.filetype == 'qf' then
+    if vim.bo.filetype == 'qf' and config.autoresize.height_quickfix > 0 then
         vim.api.nvim_win_set_height(0, config.autoresize.height_quickfix)
         return
     end
