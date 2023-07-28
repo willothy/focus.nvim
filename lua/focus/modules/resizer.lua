@@ -218,19 +218,6 @@ function M.animate(win, to_width, to_height, config, cancel, on_done)
 end
 
 function M.autoresize(config)
-    if
-        utils.is_disabled()
-        or vim.api.nvim_win_get_option(0, 'diff')
-        or vim.api.nvim_win_get_config(0).relative ~= ''
-    then
-        return
-    end
-
-    if vim.bo.ft == 'qf' then
-        vim.api.nvim_win_set_height(0, config.autoresize.height_quickfix)
-        return
-    end
-
     local width
     if config.autoresize.width > 0 then
         width = config.autoresize.width
@@ -312,7 +299,7 @@ function M.split_resizer(config) --> Only resize normal buffers, set qf to 10 al
         return
     end
 
-    if vim.bo.ft == 'qf' then
+    if vim.bo.filetype == 'qf' then
         vim.api.nvim_win_set_height(0, config.autoresize.height_quickfix)
         return
     end
