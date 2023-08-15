@@ -13,19 +13,19 @@ Always have a nice view over your split windows
 
 ![screencast](https://i.ibb.co/0tsKww4/focusop.gif)
 
-*Note*: For reference this screencast features dimensions set to 40 rows and 120
+_Note_: For reference this screencast features dimensions set to 40 rows and 120
 columns.
 
-*See a visual demonstration of each focus feature
-[here](https://github.com/nvim-focus/focus.nvim/blob/master/DEMO.md)_.
+\*See a visual demonstration of each focus feature
+[here](https://github.com/nvim-focus/focus.nvim/blob/master/DEMO.md)\_.
 
 ## Features
 
-* 👌 Resizes split windows automatically based on [golden ratio](https://en.wikipedia.org/wiki/Golden_ratio)
-* ⚙️ Enables cursorline/signcolumn/numbers on focus window only
-* 🙌 Window creation or switch by direction
-* 🖥 Equalise splits or maximise focused splits, and toggle between the two
-* 🔌 Option to open tmux windows instead of creating new splits
+- 👌 Resizes split windows automatically based on [golden ratio](https://en.wikipedia.org/wiki/Golden_ratio)
+- ⚙️ Enables cursorline/signcolumn/numbers on focus window only
+- 🙌 Window creation or switch by direction
+- 🖥 Equalise splits or maximise focused splits, and toggle between the two
+- 🔌 Option to open tmux windows instead of creating new splits
 
 ## Installation
 
@@ -118,19 +118,6 @@ require("focus").setup({
         minwidth = 0, -- Force minimum width for the unfocused window
         minheight = 0, -- Force minimum height for the unfocused window
         height_quickfix = 10, -- Set the height of quickfix panel
-        -- options for animation of autoresize
-        animation = {
-            -- Animation is disabled by default
-            enabled = false,
-            -- Easing can be either string name of a builtin easing function, or custom easing function
-            -- builtin easing functions are:
-            -- "linear" | "outQuad" | "inOutQuad" | "outCubic" | "inOutCubic"
-            --
-            -- Easing functions have the signature fun(elapsed, initial, delta, duration)
-            -- Delta is the initial value subtracted from the target value
-            -- Duration and elasped are in milliseconds
-            easing = "linear"
-        }
     },
     split = {
         bufnew = false, -- Create blank buffer for new split windows
