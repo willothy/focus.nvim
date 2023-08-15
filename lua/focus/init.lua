@@ -28,10 +28,6 @@ Focus.config = {
         minwidth = 0, -- Force minimum width for the unfocused window
         minheight = 0, -- Force minimum height for the unfocused window
         height_quickfix = 10, -- Set the height of quickfix panel
-        animation = {
-            enable = false,
-            easing = 'linear',
-        },
     },
     split = {
         bufnew = false, -- Create blank buffer for new split windows
@@ -184,15 +180,6 @@ H.setup_config = function(config)
         ['autoresize.height_quickfix'] = {
             config.autoresize.height_quickfix,
             'number',
-        },
-        ['autoresize.animation'] = { config.autoresize.animation, 'table' },
-        ['autoresize.animation.enable'] = {
-            config.autoresize.animation.enable,
-            'boolean',
-        },
-        ['autoresize.animation.easing'] = {
-            config.autoresize.animation.easing,
-            { 'string', 'function' },
         },
     })
 
