@@ -87,12 +87,6 @@ end
 M.goal = 'autoresize'
 
 function M.split_resizer(config) --> Only resize normal buffers, set qf to 10 always
-    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        if vim.api.nvim_win_call(win, utils.is_disabled) then
-            vim.wo[win].winfixwidth = true
-            vim.wo[win].winfixheight = true
-        end
-    end
     if
         utils.is_disabled()
         or vim.api.nvim_win_get_option(0, 'diff')
@@ -104,19 +98,6 @@ function M.split_resizer(config) --> Only resize normal buffers, set qf to 10 al
     if vim.bo.filetype == 'qf' and config.autoresize.height_quickfix > 0 then
         vim.api.nvim_win_set_height(0, config.autoresize.height_quickfix)
         return
-    end
-
-    if config.autoresize.minwidth > 0 then
-        if vim.o.winwidth < config.autoresize.minwidth then
-            vim.o.winwidth = config.autoresize.minwidth
-        end
-        vim.o.winminwidth = config.autoresize.minwidth
-    end
-    if config.autoresize.minheight > 0 then
-        if vim.o.winheight < config.autoresize.minheight then
-            vim.o.winheight = config.autoresize.minheight
-        end
-        vim.o.winminheight = config.autoresize.minheight
     end
 
     M[M.goal](config)
