@@ -146,17 +146,17 @@ function Focus.focus_max_or_equal()
 end
 
 function Focus.focus_disable_window()
-    vim.w.focus_disable = true
+    vim.b.focus_disable = true
     Focus.resize()
 end
 
 function Focus.focus_enable_window()
-    vim.w.focus_disable = false
+    vim.b.focus_disable = false
     Focus.resize()
 end
 
 function Focus.focus_toggle_window()
-    vim.w.focus_disable = not vim.w.focus_disable
+    vim.b.focus_disable = not vim.b.focus_disable
     Focus.resize()
 end
 

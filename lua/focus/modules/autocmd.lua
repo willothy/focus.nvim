@@ -72,16 +72,6 @@ function M.setup(config)
             callback = function(_)
                 -- Remember the previous window id and cursor position
                 previous_win_id = vim.api.nvim_get_current_win()
-                local resizer = require('focus.modules.resizer')
-                if
-                    vim.api.nvim_win_is_valid(previous_win_id)
-                    and not resizer.is_animating()
-                then
-                    resizer.view_cache[previous_win_id] =
-                        vim.api.nvim_win_get_cursor(previous_win_id)
-                else
-                    resizer.view_cache[previous_win_id] = nil
-                end
             end,
             desc = 'Save previous window id from split',
         })
