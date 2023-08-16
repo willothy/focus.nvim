@@ -118,6 +118,7 @@ require("focus").setup({
         minwidth = 0, -- Force minimum width for the unfocused window
         minheight = 0, -- Force minimum height for the unfocused window
         height_quickfix = 10, -- Set the height of quickfix panel
+        ignore_filetypes = {} -- Disable autoresize by filetype
     },
     split = {
         bufnew = false, -- Create blank buffer for new split windows
@@ -164,6 +165,21 @@ require("focus").setup({commands = false})
 require("focus").setup({ autoresize = { enable = false } })
 ```
 
+**Enable/Disable Focus Window Autoresizing by Filetype**
+```lua
+-- Windows containing buffers with filetypes in the provided set will not be
+-- resized.
+-- Default: {}
+require("focus").setup({
+    autoresize = {
+        ---@type table<string, boolean> set of filetypes
+        ignore_filetypes = {
+            ["neo-tree"] = true,
+            SidebarNvim = true
+        }
+    }
+})
+```
 
 **Set Focus Width**
 ```lua

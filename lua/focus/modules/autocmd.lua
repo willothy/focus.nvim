@@ -82,6 +82,17 @@ function M.setup(config)
             end,
             desc = 'Reset previous window id from closed split',
         })
+        vim.api.nvim_create_autocmd('BufWinEnter', {
+            group = augroup,
+            callback = function(ev)
+                local ft = vim.bo[ev.buf].filetype
+                if config.autoresize.ignore_filetypes[ft] then
+                    vim.w.focus_disable = true
+                else
+                    vim.w.focus_disable = false
+                end
+            end,
+        })
     end
 
     if config.ui.signcolumn then
