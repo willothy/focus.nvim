@@ -74,22 +74,35 @@ local goals = {
             end
         end
 
-        -- save cmdheight to ensure it is not changed by nvim_win_set_height
-        local cmdheight = vim.o.cmdheight
+        local view = vim.fn.winsaveview()
 
         local fixed = save_fixed_win_dims()
 
         vim.api.nvim_win_set_width(0, width)
-        vim.api.nvim_win_set_height(0, height)
+
+        local layout = vim.fn.winlayout()
+
+        if layout[1] ~= 'leaf' then
+            local curwin = vim.api.nvim_get_current_win()
+            local found = false
+            for i = 1, #layout[2] do
+                if layout[2][i][2] == curwin then
+                    found = true
+                    break
+                end
+            end
+            -- only set height if the current window is not a top-level window
+            if not found then
+                vim.api.nvim_win_set_height(0, height)
+            end
+        end
 
         restore_fixed_win_dims(fixed)
-
-        vim.o.cmdheight = cmdheight
     end),
-    equalise = vim.schedule_wrap(function()
+    equalise = function(_)
         vim.api.nvim_exec2('wincmd =', { output = false })
-    end),
-    maximise = vim.schedule_wrap(function()
+    end,
+    maximise = vim.schedule_wrap(function(_)
         local width, height = vim.o.columns, vim.o.lines
 
         local fixed = save_fixed_win_dims()
